@@ -5,3 +5,42 @@
 
 <link rel="stylesheet" href="_static/style.css" type="text/css" />
 {% endblock extrahead %}
+
+{% block header %}
+      <div class="header">
+        {%- if logo %}
+          <p class="logo"><a href="{{ pathto(master_doc) }}">
+            <img class="logo" src="{{ pathto('_static/' + logo, 1) }}" alt="Logo"/>
+          </a></p>
+        {%- endif %}
+        {%- block headertitle %}
+        <div class="headertitle"><a
+                href="{{ pathto(master_doc) }}"><span class="title">re dev</span></a></div>
+        <div class="subtitle container">lightweight philosophy, strategy, and tactics for software development</div>
+        {%- endblock %}
+       </div>
+{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper">
+    <div class="sidebar">
+      {%- block sidebarsearch %}
+      <h3 style="margin-top: 1.5em;">{{ _('Search') }}</h3>
+      <form class="search" action="{{ pathto('search') }}" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="{{ _('Go') }}" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+      {%- endblock %}
+    </div>
+      <div class="content">
+        <div class="document">
+          {%- block document %}
+            {{ super() }}
+          {%- endblock %}
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+{% endblock %}

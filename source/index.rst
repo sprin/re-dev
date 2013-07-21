@@ -1,12 +1,28 @@
 .. include:: global.rst
 
-=======================================================
-:title:`Re Dev - In the Matter of Software Development`
-=======================================================
+==============
+sprin's re dev
+==============
 
-.. container:: subtitle
+is an encapsulation of my approach to development. It tries to convey the
+benefits of lightweight constructs not just in code, but in system design,
+project organization, team communication, and infrastructure. It is a reaction
+to the contrast of the successes of lightweight in close proximity to the
+failures of heavyweight.
 
-   `Philosophy, Strategy, and Tactics`
+Three recurring motifs of lightweight approaches are:
+
+ - Smallness
+ - Simplicity
+ - Promiscuity
+
+These guiding virtues can be used to achieve speed of implementation,
+high performance, robust and maintainable architecture, and elegant and
+empathic human interfaces. This last quality is the most important, and
+more focus can be given to user experience when less time is spent ensuring
+the other qualities. With lightweight's emphasis on unfettered composability of
+small components, the possibilities to also deliver a radically better
+experience through novel compositions are significantly greater.
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae arcu
 augue. Donec et velit vel mauris molestie hendrerit sed accumsan tellus.
