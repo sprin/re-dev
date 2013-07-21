@@ -1,0 +1,24 @@
+h1 {
+  color: black;
+  font-size: 32px;
+  margin-bottom: 0;
+  text-align: center;
+}
+h1, h2, h3 {
+  font-family: 'Rokkitt', 'Georgia', serif;
+  font-weight: normal;
+}
+.subtitle {
+  font-style: italic;
+  color: #444;
+  text-align: center;
+  margin-bottom: 0.8em;
+}
+body {
+  font-family: 'Fauna One', 'Georgia', serif;
+  font-size: 17px;
+}
+div.content, div.document {
+  width: 700px;
+  margin: auto;
+}
