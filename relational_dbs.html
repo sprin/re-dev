@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Relational Databases &mdash; re-dev 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="re-dev 0.1 documentation" href="index.html" />
+<link href='http://fonts.googleapis.com/css?family=Fauna+One|Rokkitt' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="_static/style.css" type="text/css" />
+
+  </head>
+  <body>
+      <div class="header">
+        <div class="headertitle"><a
+                href="index.html"><span class="title">re dev</span></a></div>
+        <div class="subtitle container">lightweight philosophy, strategy, and tactics for software development</div>
+       </div>
+
+    <div class="content-wrapper">
+    <div class="sidebar">
+      <h3 style="margin-top: 1.5em;">Search</h3>
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Go" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+      <div class="content">
+        <div class="document">
+            
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="relational-databases">
+<h1>Relational Databases<a class="headerlink" href="#relational-databases" title="Permalink to this headline">¶</a></h1>
+<p>Relational database management systems (RDBMS) are well-understood and
+predictable in function and performance. They are suitable for rapid
+development - with basic normalized modelling, a small, performant schema can
+be created in minutes. Transactional RDBMS set the standard for data integrity
+for other data stores.</p>
+<p>All of my experience with RDBMS has been with <a class="reference external" href="http://www.postgresql.org/">PostgreSQL</a>, so I will refer
+to Postgres throughout this article, rather than RDBMS, although much
+still applies to other RDBMS.</p>
+<div class="section" id="small">
+<h2>Small<a class="headerlink" href="#small" title="Permalink to this headline">¶</a></h2>
+<p>Postgres is not particularly &#8220;small&#8221; in the sense of code, written with
+700K source lines of code (<a class="reference external" href="http://www.ohloh.net/p/postgres/analyses/latest/languages_summary">Postgres SLOC</a>). However, compared to <a class="reference external" href="http://www.mysql.com/">MySQL</a> at 1.7M
+(<a class="reference external" href="http://www.ohloh.net/p/mysql/analyses/latest/languages_summary">MySQL SLOC</a>), Postgres may be considered the lightweight open-source RDBMS.</p>
+<p>Less mature and featureful DBMS may be smaller, but not by much: <a class="reference external" href="http://www.mongodb.org/">MongoDB</a>
+with 500K (<a class="reference external" href="http://www.ohloh.net/p/mongodb/analyses/latest/languages_summary">Mongo SLOC</a>), <a class="reference external" href="http://cassandra.apache.org/">Cassandra</a> with 200K (<a class="reference external" href="http://www.ohloh.net/p/cassandra/analyses/latest/languages_summary">Cassandra SLOC</a>).</p>
+<p>Another aspect of &#8220;small&#8221; is ease of deployment and operation. Postgres
+is installable from package managers for every Linux server distribution in
+common use. It requires very little configuration, although it is recommended
+to change a handful of parameters to maximize use of available resources for
+the given workload - this can be automated with <a class="reference external" href="https://github.com/gregs1104/pgtune">pgtune</a>. For production
+deployment, streaming replication and automated backups are also recommended
+configuration, but not particularly difficult to set up. Postgres is also
+available as a database-as-a-service from <a class="reference external" href="https://www.heroku.com/">Heroku</a> and <a class="reference external" href="http://openhosting.com/">Open Hosting</a>, among
+others.</p>
+<p><a class="reference external" href="http://www.postgresql.org/docs/9.2/static/monitoring.html">Monitoring</a> can be accomplished with standard Unix tools, as well as with plain
+SQL queries on special statistics tables. Additionally, there are web-based
+monitoring tools available, such as this <a class="reference external" href="http://newrelic.com/plugins/boundless/109">plugin for New Relic</a>
+and this <a class="reference external" href="https://scoutapp.com/plugin_urls/371-postgresql-monitoring">plugin for Scout</a>.</p>
+</div>
+<div class="section" id="simple">
+<h2>Simple<a class="headerlink" href="#simple" title="Permalink to this headline">¶</a></h2>
+<p>Programming constructs for relational databases can be divided in four groups:</p>
+<blockquote>
+<div><ul class="simple">
+<li>SELECT</li>
+<li>Data Manipulation (DML, such as INSERT, UPDATE, DELETE)</li>
+<li>Data Definition (DDL, such as CREATE, ALTER)</li>
+<li>Procedural Languages, such as PL/pgSQL</li>
+</ul>
+</div></blockquote>
+<p>Of these, the first three are lightweight, declarative SQL constructs that
+express operations on the data and schema very succinctly. The last, procedural
+languages, are usually reserved for custom functions and extensions that cannot
+be expressed in pure SQL, such as trigger functions.</p>
+<p>All of these constructs can either be tested directly in an interactive psql
+terminal session, or for longer statements, written to a file that can be loaded
+into an interactive session. The psql terminal allows for extremely rapid
+development: SELECT queries can be executed and the results viewed immediately.
+DDL can be tested and refined iteratively with ALTER statements. DML
+can be tested as many times as necessary within a BEGIN/ROLLBACK block, which
+wraps the statements in a transaction that is rolled back after the results can
+be inspected.</p>
+</div>
+<div class="section" id="promiscuous">
+<h2>Promiscuous<a class="headerlink" href="#promiscuous" title="Permalink to this headline">¶</a></h2>
+<p>There are mature drivers for Postgres for every popular rapid development
+platform.  In particular, <a class="reference external" href="http://www.initd.org/psycopg/">pyscopg</a> for Python, <a class="reference external" href="https://bitbucket.org/ged/ruby-pg/wiki/Home">ruby-pg</a> for Ruby, and
+<a class="reference external" href="https://github.com/clojure/java.jdbc">clojure.java.jdbc</a> for Clojure, and <a class="reference external" href="https://github.com/brianc/node-postgres">node-postgres</a> for Node.js.</p>
+<p>Postgres can also play nicely with other data stores through the use of
+<a class="reference external" href="http://wiki.postgresql.org/wiki/Foreign_data_wrappers">foreign data wrappers</a>, which allow records in other data stores to be
+accessed through Postgres.</p>
+<p>Postgres has a thriving community of users, third-party tool and extension
+developers, and consultants. The <a class="reference external" href="http://www.postgresql.org/community/lists/">mailing lists</a> are very active and contain
+within their archives a huge quantity of searchable help info. A very large
+number of Postgres-related projects are hosted on <a class="reference external" href="https://github.com/search?q=postgresql+OR+postgres">github</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+            <br/>
+            <a href="_sources/relational_dbs.txt"
+               rel="nofollow">Show Source</a>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer">
+        &copy; Copyright 2013, sprin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
