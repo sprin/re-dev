@@ -40,6 +40,10 @@ While scaling into the terabyte range may become a challenge with
 relational databases, the argument of development ease falls apart when
 denormalized data stores cannot cope with new querying requirements, or
 suffer from data integrity issues as the application evolves. The article on
-:doc:`relational_dbs` goes in to depth about why a relational database is a good tool
-for lightweight development.
+:doc:`relational_dbs` goes in to depth about why a relational database is a
+good tool for lightweight development. `Armin Ronacher`_ has also written about
+the productivity of relational databases versus non-relational datastores in
+`SQL is Agile`_.
+
+.. _`SQL is Agile`: http://lucumr.pocoo.org/2012/12/29/sql-is-agile/
 

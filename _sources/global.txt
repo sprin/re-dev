@@ -14,3 +14,5 @@
 
 .. _Open Hosting: http://openhosting.com/
 
+.. _Armin Ronacher: http://lucumr.pocoo.org/
+
